@@ -168,7 +168,7 @@ public class EmpleadoManager {
         String recibosPath = employeeFolder(code) + "/recibos.emp";
         RandomAccessFile recibo = new RandomAccessFile(recibosPath, "rw");
         recibo.seek(recibo.length());
-        recibo.writeLong(System.currentTimeMillis());
+        recibo.writeLong(Calendar.getInstance().getTimeInMillis());
         recibo.writeDouble(comision);
         recibo.writeDouble(sueldo);
         recibo.writeDouble(deduccion);
