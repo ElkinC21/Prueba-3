@@ -48,18 +48,14 @@ public class EmpleadoMain {
                     System.out.print("Monto de la venta: ");
                     double monto = lea.nextDouble();
                     lea.nextLine();
-                    System.out.print("Ingrese numero del mes a agregar: ");
-                    int mes = lea.nextInt();
-                    lea.nextLine();
-                    manejo.addSaleToEmployee(code, monto, mes);
-                    System.out.println("Venta agregada");
+                    manejo.addSaleToEmployee(code, monto); 
                     break;
                 }
                 case 4: {
                     System.out.print("Codigo del empleado: ");
                     int code = lea.nextInt();
                     lea.nextLine();
-                    manejo.payEmployee(code);
+                    manejo.payEmployee(code); 
                     break;
                 }
                 case 5: {
@@ -67,7 +63,7 @@ public class EmpleadoMain {
                     int code = lea.nextInt();
                     lea.nextLine();
                     if (!manejo.fireEmployee(code)) {
-                        System.out.println("No se pudo despedir");
+                        System.out.println("no se encontro el usuario");
                     }
                     break;
                 }
@@ -90,3 +86,5 @@ public class EmpleadoMain {
         }
     }
 }
+
+

@@ -124,27 +124,27 @@ public class EmpleadoManager {
         return false;
     }
 
-  
-    public void addSaleToEmployee(int code, double monto, int mesUsuario) throws IOException {
+   
+    public void addSaleToEmployee(int code, double monto) throws IOException {
         if (!isEmployeeActive(code)) {
-            return;
-        }
-        int mes = mesUsuario - 1;
-        if (mes < 0 || mes > 11) {
+            System.out.println("no se encontro el usuario");
             return;
         }
         createYearSalesFileFor(code);
         RandomAccessFile rventa = SalesFileFor(code);
+        int mes = Calendar.getInstance().get(Calendar.MONTH);
         rventa.seek(mes * 9);
         double ventasMes = rventa.readDouble();
         boolean pagado = rventa.readBoolean();
         rventa.seek(mes * 9);
         rventa.writeDouble(ventasMes + monto);
         rventa.writeBoolean(pagado);
+        System.out.println("Venta agregada");
     }
 
     public void payEmployee(int code) throws IOException {
         if (!isEmployeeActive(code)) {
+            System.out.println("no se encontro el usuario");
             return;
         }
         String name = remps.readUTF();
@@ -159,6 +159,7 @@ public class EmpleadoManager {
         double ventasMes = rventa.readDouble();
         boolean pagado = rventa.readBoolean();
         if (pagado) {
+            System.out.println("ya se le pago este mes");
             return;
         }
         double comision = ventasMes * 0.10;
@@ -172,7 +173,7 @@ public class EmpleadoManager {
         recibo.writeDouble(comision);
         recibo.writeDouble(sueldo);
         recibo.writeDouble(deduccion);
-        recibo.writeDouble(sueldo);
+        recibo.writeDouble(sueldototal);
         recibo.writeInt(year);
         recibo.writeInt(mes);
         rventa.seek(mes * 9 + 8);
@@ -199,7 +200,7 @@ public class EmpleadoManager {
             }
         }
         if (name == null) {
-            System.out.println("Empleado no encontrado");
+            System.out.println("no se encontro el usuario");
             return;
         }
         System.out.println("----------Informacion Empleado-----");
@@ -230,3 +231,4 @@ public class EmpleadoManager {
         System.out.println("Cantidad total de recibos: " + contador);
     }
 }
+
